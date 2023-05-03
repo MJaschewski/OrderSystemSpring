@@ -59,14 +59,7 @@ class ShopServiceTest {
     @Test
     void getOrder_should_return_right_order(){
         //Given
-        Map<Integer, Product> products = Map.of(
-                1, new Product(1, "Apfel"),
-                2, new Product(2, "Banane"),
-                3, new Product(3, "Zitrone"),
-                4, new Product(4, "Mandarine")
-        );
-        List<Product> productList = new ArrayList<>(products.values());
-
+        List<Product> productList = new ArrayList<>();
         when(generateUUID.generateUUID()).thenReturn("1");
         Order expected = new Order(generateUUID.generateUUID(),productList);
 
