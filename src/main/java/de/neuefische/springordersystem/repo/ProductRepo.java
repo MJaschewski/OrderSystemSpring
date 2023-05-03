@@ -18,7 +18,7 @@ public class ProductRepo {
             4, new Product(4, "Mandarine")
     );
 
-    public Product getProduct(int id) {
+    public Product getProduct(int id){
         Product product = products.get(id);
         if (product == null) {
             throw new NoSuchElementException("No product with id " + id + " found in this product repo.");

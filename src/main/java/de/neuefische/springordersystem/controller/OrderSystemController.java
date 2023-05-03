@@ -31,13 +31,12 @@ public class OrderSystemController {
     }
 
     @GetMapping("orders/{id}")
-    public Order getOrder(@PathVariable int id){
+    public Order getOrder(@PathVariable String id){
         return shopService.getOrder(id);
     }
 
-    @PostMapping("orders/{id}")
-    public Order postOrder(@PathVariable int id, @RequestBody List<Integer> orderList){
-        shopService.addOrder(id, orderList);
-        return shopService.getOrder(id);
+    @PostMapping("orders/add")
+    public void postOrder( @RequestBody List<Integer> orderList){
+        shopService.addOrder(orderList);
     }
 }

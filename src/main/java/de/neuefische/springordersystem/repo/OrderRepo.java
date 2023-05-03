@@ -11,13 +11,13 @@ import java.util.Map;
 @Repository
 public class OrderRepo {
 
-    private final Map<Integer, Order> orders = new HashMap<>();
+    private final Map<String, Order> orders = new HashMap<>();
 
     public void addOrder(Order order) {
         orders.put(order.getId(), order);
     }
 
-    public Order getOrder(int orderId) {
+    public Order getOrder(String orderId) {
         return orders.get(orderId);
     }
 

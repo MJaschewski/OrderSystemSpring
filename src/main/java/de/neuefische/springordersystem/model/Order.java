@@ -9,7 +9,7 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Order{
-        private int id;
+        private String id;
         private List<Product> products;
 
 }
