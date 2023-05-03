@@ -4,10 +4,13 @@ import de.neuefische.springordersystem.model.Order;
 import de.neuefische.springordersystem.model.Product;
 import de.neuefische.springordersystem.repo.OrderRepo;
 import de.neuefische.springordersystem.repo.ProductRepo;
+import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.ArrayList;
 import java.util.List;
 
+@Service
 public class ShopService {
     private final ProductRepo productRepo;
     private final OrderRepo orderRepo;
