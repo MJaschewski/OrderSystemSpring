@@ -61,6 +61,7 @@ class ShopServiceTest {
         //Given
         List<Product> productList = new ArrayList<>();
         when(generateUUID.generateUUID()).thenReturn("1");
+
         Order expected = new Order(generateUUID.generateUUID(),productList);
 
         //When

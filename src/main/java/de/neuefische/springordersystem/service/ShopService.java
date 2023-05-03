@@ -32,7 +32,7 @@ public class ShopService {
         return productRepo.listProducts();
     }
 
-    public void addOrder( List<Integer> productIds) {
+    public Order addOrder( List<Integer> productIds) {
         List<Product> products = new ArrayList<>();
         for (int productId : productIds) {
             Product product = productRepo.getProduct(productId);
@@ -40,7 +40,7 @@ public class ShopService {
         }
 
         Order order = new Order( generateUUID.generateUUID(), products);
-        orderRepo.addOrder(order);
+        return orderRepo.addOrder(order);
     }
 
     public Order getOrder(String orderId) {
