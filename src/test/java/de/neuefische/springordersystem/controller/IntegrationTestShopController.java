@@ -75,7 +75,7 @@ class IntegrationTestShopController {
 
     @Test
     @DirtiesContext
-    void whenGetOrder_thenReturnRightOrder() throws Exception{
+    void whenGetOrder_thenReturn200Ok_and_RightOrder() throws Exception{
         //Add order to the empty orderList
         MvcResult response = mockMcv.perform(MockMvcRequestBuilders.post("/api/orders/add") //PathVariable defined in url. Example: /api/orders/2
                         .contentType(MediaType.APPLICATION_JSON)
@@ -104,7 +104,7 @@ class IntegrationTestShopController {
                                                             "products":[{"id":1,"name":"Apfel"}]
                                                         }
                                                     """))
-                .andExpect(jsonPath("$.id").isNotEmpty());
+                .andExpect(jsonPath("$.id").value(orderId));
     }
 
     @Test
