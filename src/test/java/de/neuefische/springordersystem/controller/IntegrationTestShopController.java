@@ -13,6 +13,8 @@ import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
+import java.util.NoSuchElementException;
+
 import static org.junit.jupiter.api.Assertions.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
@@ -36,13 +38,26 @@ class IntegrationTestShopController {
         mockMcv.perform(MockMvcRequestBuilders.get("/api/products"))
                 .andExpect(status().isOk())
                 .andExpect(content().json("""   
-                                                        [
-                                                            {"id":1,"name":"Apfel"},
-                                                            {"id":2,"name":"Banane"},
-                                                            {"id":3,"name":"Zitrone"},
-                                                            {"id":4,"name":"Mandarine"}
-                                                        ]
-                                        """));
+                                                    [
+                                                        {"id":1,"name":"Apfel"},
+                                                        {"id":2,"name":"Banane"},
+                                                        {"id":3,"name":"Zitrone"},
+                                                        {"id":4,"name":"Mandarine"}
+                                                    ]
+                                               """));
+    }
+
+    @Test
+    @DirtiesContext
+    void getProduct_wrongIdRThrowsNoSuchElementExceptionWithCorrectMessage(){
+        try{
+        mockMcv.perform(MockMvcRequestBuilders.get("/api/products/5"));
+                fail();}
+        catch (Exception e){
+            String expected = "Request processing failed: java.util.NoSuchElementException: No product with id 5 found in this product repo.";
+            String actual = e.getMessage();
+            assertEquals(expected,actual);
+            }
     }
 
     @Test
@@ -51,11 +66,11 @@ class IntegrationTestShopController {
         mockMcv.perform(MockMvcRequestBuilders.get("/api/products/1"))
                 .andExpect(status().isOk())
                 .andExpect(content().json("""      
-                                    {
-                                        "id" : 1,
-                                        "name" : "Apfel"         
-                                    }
-                """));
+                                                {
+                                                    "id" : 1,
+                                                    "name" : "Apfel"         
+                                                }
+                                            """));
     }
 
     @Test
@@ -67,15 +82,15 @@ class IntegrationTestShopController {
                         .content("[1]"))
                 .andExpect(status().isOk())
                 .andExpect(content().json("""
-                            {
-                                "products" : [
-                                    {
-                                        "id" : 1,
-                                        "name" : "Apfel"         
-                                    }
-                                ]
-                            }
-                        """))
+                                            {
+                                                "products" : [
+                                                    {
+                                                        "id" : 1,
+                                                        "name" : "Apfel"         
+                                                    }
+                                                ]
+                                            }
+                                        """))
                 .andExpect(jsonPath("$.id").isNotEmpty()).andReturn();
 
         String content = response.getResponse().getContentAsString();
@@ -101,15 +116,15 @@ class IntegrationTestShopController {
                         .content("[1]"))
                 .andExpect(status().isOk())
                 .andExpect(content().json("""
-                            {
-                                "products" : [
-                                    {
-                                        "id" : 1,
-                                        "name" : "Apfel"         
-                                    }
-                                ]
-                            }
-                        """))
+                                                {
+                                                    "products" : [
+                                                        {
+                                                            "id" : 1,
+                                                            "name" : "Apfel"         
+                                                        }
+                                                    ]
+                                                }
+                                            """))
                 .andExpect(jsonPath("$.id").isNotEmpty());
     }
     /*
