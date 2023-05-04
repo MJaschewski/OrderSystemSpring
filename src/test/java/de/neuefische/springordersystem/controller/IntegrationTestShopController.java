@@ -78,7 +78,7 @@ class IntegrationTestShopController {
     void whenGetOrder_thenReturn200Ok_and_RightOrder() throws Exception{
         //Add order to the empty orderList
         MvcResult response = mockMcv.perform(MockMvcRequestBuilders.post("/api/orders/add") //PathVariable defined in url. Example: /api/orders/2
-                        .contentType(MediaType.APPLICATION_JSON)
+                        .contentType(MediaType.APPLICATION_JSON) // alt writing: "application/json"
                         .content("[1]"))
                 .andExpect(status().isOk())
                 .andExpect(content().json("""
