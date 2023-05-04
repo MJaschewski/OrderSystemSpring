@@ -36,7 +36,7 @@ public class OrderSystemController {
     }
 
     @PostMapping("orders/add")
-    public void postOrder( @RequestBody List<Integer> orderList){
-        shopService.addOrder(orderList);
+    public Order postOrder( @RequestBody List<Integer> orderList){
+        return shopService.addOrder(orderList);
     }
 }

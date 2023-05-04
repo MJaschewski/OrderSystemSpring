@@ -20,6 +20,25 @@ class ShopServiceTest {
     ShopService service = new ShopService(productRepo,orderRepo,generateUUID);
 
     @Test
+    void addOrder(){
+        //Given
+        List<Integer> productList = new ArrayList<>();
+        productList.add(1);
+        when(productRepo.getProduct(1)).thenReturn(new Product());
+        when(generateUUID.generateUUID()).thenReturn("1");
+        List<Product> products = new ArrayList<>();
+        products.add(productRepo.getProduct(1));
+        Order expected = new Order(generateUUID.generateUUID(), products);
+
+        //When
+        when(orderRepo.addOrder(any())).thenReturn(expected);
+        Order actual = service.addOrder(productList);
+
+        //Then
+        assertEquals(expected,actual);
+
+    }
+    @Test
     void getProduct_should_return_right_product(){
         //Given
         int productId = 2;
